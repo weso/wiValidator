@@ -4,6 +4,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException
 
 trait Extractor {	
   
+  
 	def checkValue(indicator:String, region:String, value: String) = {
 	   throw new NotImplementedException
 	}

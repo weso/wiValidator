@@ -34,7 +34,7 @@ trait PoiExtractor extends Extractor {
   
   def getYear(col: Int): Int
   
-  def getCountry(row: Int): String
+  def getRegion(row: Int): String
   
   def loadValues() : Indicator
 

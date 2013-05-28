@@ -13,6 +13,14 @@ class Indicator (val name:String){
 	  years.getOrElse(year, Map.empty)
 	}
 	
+	def getRecord(region :String, year:Int):Record = {
+	 	val reg = regions.getOrElse(region, null)
+	 	val value = reg.getOrElse(year, null)
+	 	if(value == null)
+	 	  throw new Exception
+	 	value
+	}
+	
 	def addRecord(record:Record){
 	  addRecordByRegion(record)
 	  addRecordByYear(record)

@@ -8,6 +8,8 @@ import org.apache.poi.ss.usermodel.Workbook
 import java.io.FileInputStream
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import java.io.File
+import org.apache.poi.ss.usermodel.Cell
+import es.weso.exceptions.InvalidCellContentException
 
 trait PoiExtractor extends Extractor {
 
@@ -37,5 +39,23 @@ trait PoiExtractor extends Extractor {
   def getRegion(row: Int): String
   
   def loadValues() : Indicator
+  
+  def obtainNumericCellValue(cell : Cell) : Double = {
+    cell.getCellType() match {
+      case Cell.CELL_TYPE_BLANK => throw new InvalidCellContentException(
+          "Value of the cell is not a number")
+      case Cell.CELL_TYPE_NUMERIC => cell.getNumericCellValue
+      case Cell.CELL_TYPE_STRING => {
+    	  try {
+    	    cell.getStringCellValue().toInt
+    	  } catch {
+    	    case e: Exception => throw new InvalidCellContentException(
+    	        "Value of the cell is not a number") 
+    	  }
+        }
+      case _ => throw new InvalidCellContentException("Value of the cell " +
+      		"is not a number")
+    }
+  }
 
 }

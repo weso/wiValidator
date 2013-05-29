@@ -6,7 +6,7 @@ import org.apache.poi.hssf.util.CellReference
 import org.apache.poi.ss.usermodel.Row
 import es.weso.wi.entities.Record
 import org.apache.poi.ss.usermodel.Cell
-import es.weso.exceptions.InvalidCellContentException
+import es.weso.exceptions.ExtractorException
 import scala.collection.immutable.Range.Inclusive
 
 class FreedomHouseExtractor(var indicator: String) extends PoiExtractor{
@@ -21,8 +21,8 @@ class FreedomHouseExtractor(var indicator: String) extends PoiExtractor{
     indicator match {
       case "PR" => new Indicator("FHA")
       case "CL" => new Indicator("FHB")
-      case _ => throw new Exception(indicator + " isn't a freedom house " +
-      		"indicator")
+      case _ => throw new ExtractorException(indicator + " isn't a freedom " +
+      		"house indicator")
     }
   }
   
@@ -50,13 +50,15 @@ class FreedomHouseExtractor(var indicator: String) extends PoiExtractor{
     } {
       val cell = row.getCell(colNum, Row.RETURN_BLANK_AS_NULL)
       if(cell != null){
-        try {
-          val record = new Record(indicator.name, getRegion(cell.getRowIndex()), 
-            getYear(cell.getColumnIndex()), obtainNumericCellValue(cell))
-          indicator.addRecord(record)
-        } catch {
-          case e: InvalidCellContentException => Console.err.println(
-              "There is an empty value")
+        def createExtractor() = {
+	          try {
+	        	  val record = new Record(indicator.name, getRegion(cell.getRowIndex()), 
+    			  getYear(cell.getColumnIndex()), obtainNumericCellValue(cell))
+	        	  indicator.addRecord(record)
+	          } catch {
+	          	case e: ExtractorException => Console.err.println(
+	              "There is an empty value")
+	          }
         }       
       }        
     }
@@ -67,8 +69,8 @@ class FreedomHouseExtractor(var indicator: String) extends PoiExtractor{
     indicator match {
       case "PR" => prInitialCol to prFinalCol
       case "CL" => clIntialCol to clFinalCol
-      case _ => throw new Exception(indicator + " isn't a freedom house " +
-      		"indicator")
+      case _ => throw new ExtractorException(indicator + " isn't a freedom " +
+      		"house indicator")
     }
   }
 

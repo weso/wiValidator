@@ -7,9 +7,9 @@
   <classpathentry path="/home/cesarla/.ivy2/cache/junit/junit/jars/junit-4.11.jar" kind="lib"></classpathentry>
   <classpathentry path="/home/cesarla/.ivy2/cache/org.hamcrest/hamcrest-core/jars/hamcrest-core-1.3.jar" kind="lib"></classpathentry>
   <classpathentry path="/home/cesarla/.ivy2/cache/org.scalatest/scalatest_2.10/jars/scalatest_2.10-2.0.M5b.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/cesarla/.ivy2/cache/info.cukes/cucumber-core/jars/cucumber-core-1.1.3.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/cesarla/.ivy2/cache/info.cukes/cucumber-scala/jars/cucumber-scala-1.1.3.jar" kind="lib"></classpathentry>
-  <classpathentry path="/home/cesarla/.ivy2/cache/info.cukes/cucumber-junit/jars/cucumber-junit-1.1.3.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/cesarla/.ivy2/cache/info.cukes/cucumber-core/jars/cucumber-core-1.1.2.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/cesarla/.ivy2/cache/info.cukes/cucumber-scala/jars/cucumber-scala-1.1.2.jar" kind="lib"></classpathentry>
+  <classpathentry path="/home/cesarla/.ivy2/cache/info.cukes/cucumber-junit/jars/cucumber-junit-1.1.2.jar" kind="lib"></classpathentry>
   <classpathentry path="/home/cesarla/.ivy2/cache/org.seleniumhq.selenium/selenium-java/jars/selenium-java-2.32.0.jar" kind="lib"></classpathentry>
   <classpathentry path="/home/cesarla/.ivy2/cache/org.seleniumhq.selenium/selenium-android-driver/jars/selenium-android-driver-2.32.0.jar" kind="lib"></classpathentry>
   <classpathentry path="/home/cesarla/.ivy2/cache/org.seleniumhq.selenium/selenium-remote-driver/jars/selenium-remote-driver-2.32.0.jar" kind="lib"></classpathentry>

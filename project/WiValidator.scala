@@ -1,10 +1,11 @@
 import sbt._
 import sbt.Keys._
 
+
 object WiValidatorBuild extends Build {
 
   val junitV = "4.11"
-  val cucumberV = "1.1.3"
+  val cucumberV = "1.1.2"
   val scalatestV = "2.0.M5b"
   val scalaV = "2.10.1"
 
@@ -12,9 +13,9 @@ object WiValidatorBuild extends Build {
     id = "wiValidator",
     base = file("."),
     settings = Project.defaultSettings ++ Seq(
-      name := "WebIndex-Validator",
-      organization := "webindex-validator",
-      version := "0.10-SNAPSHOT",
+      name := "wiValidator",
+      organization := "es.weso",
+      version := "0.0.1-SNAPSHOT",
       scalaVersion := scalaV,
       
       //Test Dependencies

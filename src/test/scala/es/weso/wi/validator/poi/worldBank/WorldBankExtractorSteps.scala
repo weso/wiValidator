@@ -16,8 +16,7 @@ class ValidateWebindexSteps extends ScalaDsl with EN with ShouldMatchers {
   val REGION = "region"
   val YEAR = "year"
   val VALUE = "value"
-  val PATH = "src/test/scala/resources/files/"  
-  
+  val PATH = "src/test/scala/resources/files/"    
     
   Given("""^I want to check the indicator "([^"]*)" for "([^"]*)" in "([^"]*)"$""") { (indicator: String, region: String, year: String) =>
     vars.clear
@@ -28,7 +27,7 @@ class ValidateWebindexSteps extends ScalaDsl with EN with ShouldMatchers {
   
   When("""^I check the original WorlBank source$"""){ () =>
     val extractor = new WorldBankExtractor()
-    indicator = extractor.loadDataSource("resources/files/"+vars(INDICATOR)+".xls",true)
+    indicator = extractor.loadDataSource("files/"+vars(INDICATOR)+".xls",true)
     
   }
 

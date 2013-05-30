@@ -21,3 +21,6 @@ project/plugins/project/
 .classpath
 .cache
 .DS_Store
+
+#git files
+*.orig

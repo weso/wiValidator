@@ -13,32 +13,34 @@ import es.weso.exceptions.ExtractorException
 
 trait PoiExtractor extends Extractor {
 
-  var file :InputStream = null
-  var workbook :Workbook = null
-  
-  def loadWorkbook(path: String) = {
-    file = new FileInputStream(new File(path));
+  var file: InputStream = null
+  var workbook: Workbook = null
+
+  def loadWorkbook(path: String, absolutPath: Boolean) = {
+    val currentFile = if (absolutPath)
+      new File(getClass().getClassLoader().getResource(path).getPath())
+    else
+      new File(path)
+    file = new FileInputStream(currentFile)
     workbook = new HSSFWorkbook(file)
   }
-  
-  def closeWorkbook(){
+
+  def closeWorkbook() {
     file.close()
   }
-  
-  def loadDataSource(path: String): Indicator = {	
-    loadWorkbook(path)
+
+  def loadDataSource(path: String, relativePath: Boolean = false): Indicator = {
+    loadWorkbook(path, relativePath)
     val indicator = loadValues()
     closeWorkbook
     indicator
   }
-  
-  def getIndicator() : Indicator
-  
+
+  def getIndicator(): Indicator
+
   def getYear(col: Int): Int
-  
+
   def getRegion(row: Int): String
-  
-  def loadValues() : Indicator
   
   def obtainNumericCellValue(cell : Cell) : Double = {
     cell.getCellType() match {
@@ -57,5 +59,7 @@ trait PoiExtractor extends Extractor {
       		"is not a number")
     }
   }
+
+  def loadValues(): Indicator
 
 }

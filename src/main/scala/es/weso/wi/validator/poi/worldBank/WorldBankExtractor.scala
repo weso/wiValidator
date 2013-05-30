@@ -12,6 +12,7 @@ import es.weso.wi.entities.Record
 import java.util.Iterator
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
+import javax.management.BadAttributeValueExpException
 
 class WorldBankExtractor extends PoiExtractor {
 
@@ -26,11 +27,15 @@ class WorldBankExtractor extends PoiExtractor {
 
   def getYear(col: Int): Int = {
     val cell = workbook.getSheetAt(0).getRow(0).getCell(col)
+    if(cell==null)
+      throw new IllegalArgumentException
     cell.getStringCellValue().toInt
   }
 
   def getRegion(row: Int): String = {
     val cell = workbook.getSheetAt(0).getRow(row).getCell(1)
+    if(cell==null)
+      throw new IllegalArgumentException
     cell.getStringCellValue()
   }
 

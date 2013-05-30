@@ -7,6 +7,8 @@ tmp
 *.class
 *.log
 
+bin
+
 # sbt specific
 dist/*
 target/

@@ -33,18 +33,22 @@ class WorldBankExtractorSuite extends FunSuite with BeforeAndAfter with ShouldMa
   }
 
   test("Test getRegion given a correct number of row, '48'") {
-	  worldBankExtractor.getRegion(48) should be ("Bangladesh")
+	  worldBankExtractor.getRegion(48) should be ("BGD")
   }
 
   test(s"Test getRegion given a negative number of row, 'Int.MinValue'") {
-    val region = worldBankExtractor.getRegion(Int.MinValue)
+    intercept[IllegalArgumentException]{
+    	val region = worldBankExtractor.getRegion(Int.MinValue)
+    }
   }
 
   test(s"Test getRegion given a empty row, 'Int.MaxValue'") {
-    val region = worldBankExtractor.getRegion(Int.MaxValue)
+    intercept[IllegalArgumentException]{
+    	val region = worldBankExtractor.getRegion(Int.MaxValue)
+    }
   }
 
   test("Test loadValues") {
-    val indicator = worldBankExtractor.loadValues
+    worldBankExtractor.loadValues.size should be (539)
   }
 }

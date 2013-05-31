@@ -54,7 +54,7 @@ class FreedomHouseExtractor(var indicator: String) extends PoiExtractor{
     } {
       val cell = row.getCell(colNum, Row.RETURN_BLANK_AS_NULL)
       if(cell != null){
-        def createExtractor() = {
+        def createRecord() = {
 	          try {
 	        	  val record = new Record(indicator.name, getRegion(cell.getRowIndex()), 
     			  getYear(cell.getColumnIndex()), obtainNumericCellValue(cell))
@@ -64,7 +64,7 @@ class FreedomHouseExtractor(var indicator: String) extends PoiExtractor{
 	              "There is an empty value")
 	          }
         }
-        createExtractor()
+        createRecord()
       }        
     }
     indicator

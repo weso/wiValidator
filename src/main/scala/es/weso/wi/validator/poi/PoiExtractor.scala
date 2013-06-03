@@ -17,7 +17,7 @@ trait PoiExtractor extends Extractor {
   var workbook: Workbook = null
 
   def loadWorkbook(path: String, absolutPath: Boolean) = {
-    val currentFile = if (absolutPath)
+    val currentFile = if (absolutPath) 
       new File(getClass().getClassLoader().getResource(path).getPath())
     else
       new File(path)

@@ -24,7 +24,7 @@ trait PoiExtractor extends Extractor {
     file = new FileInputStream(currentFile)
     workbook = new HSSFWorkbook(file)
   }
-
+  
   def closeWorkbook() {
     file.close()
   }

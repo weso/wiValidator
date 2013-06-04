@@ -13,8 +13,8 @@ object StepsUtils {
   val YEAR = "year"
   val VALUE = "value"
   val PATH = "files/" 
-  val BEGINCOL = "beginCol"
-  val ENDCOL = "endcol"
+  val BEGIN_COL = "beginCol"
+  val END_COL = "endcol"
   val CELL = "cell"
   
 

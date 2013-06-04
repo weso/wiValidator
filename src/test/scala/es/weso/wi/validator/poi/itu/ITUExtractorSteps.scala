@@ -14,8 +14,8 @@ class ITUExtractorSteps extends ScalaDsl with EN with ShouldMatchers{
 	StepsUtils.vars.clear
 	StepsUtils.vars += StepsUtils.INDICATOR -> indicator
 	StepsUtils.vars += StepsUtils.CELL -> cell
-	StepsUtils.vars += StepsUtils.BEGINCOL -> beginCol
-	StepsUtils.vars += StepsUtils.ENDCOL -> endCol
+	StepsUtils.vars += StepsUtils.BEGIN_COL -> beginCol
+	StepsUtils.vars += StepsUtils.END_COL -> endCol
 	StepsUtils.vars += StepsUtils.REGION -> region
 	StepsUtils.vars += StepsUtils.YEAR -> year
   }  

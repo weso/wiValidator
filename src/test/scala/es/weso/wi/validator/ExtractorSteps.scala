@@ -12,12 +12,12 @@ import es.weso.wi.validator.poi.itu.ITUExtractor
 class ExtractorSteps extends ScalaDsl with EN with ShouldMatchers{
   
   When("""^I check the original "([^"]*)" source$"""){ (source: String) =>
-    var extractor : PoiExtractor = null
+    var extractor : Extractor = null
     source match {
       case "WorldBank" => extractor = new WorldBankExtractor
       case "FreedomHouse" => extractor = new FreedomHouseExtractor(StepsUtils.vars(StepsUtils.INDICATOR))
-      case "ITU" => extractor = new ITUExtractor(StepsUtils.vars(StepsUtils.BEGINCOL).toInt, 
-    		  StepsUtils.vars(StepsUtils.ENDCOL).toInt, StepsUtils.vars(StepsUtils.CELL))
+      case "ITU" => extractor = new ITUExtractor(StepsUtils.vars(StepsUtils.BEGIN_COL).toInt, 
+    		  StepsUtils.vars(StepsUtils.END_COL).toInt, StepsUtils.vars(StepsUtils.CELL))
       case _ => throw new IllegalArgumentException("Given source is unknown")
     }
     StepsUtils.indicator = extractor.loadDataSource("files/" + 

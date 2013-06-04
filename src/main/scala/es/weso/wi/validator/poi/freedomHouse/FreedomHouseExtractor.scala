@@ -28,12 +28,16 @@ class FreedomHouseExtractor(var indicator: String) extends PoiExtractor{
   
   def getYear(col : Int) : Int = {
     val cell = workbook.getSheet("Countries").getRow(4).getCell(col)
+    if(cell == null) 
+      throw new IllegalArgumentException("Number of column incorrect")
     obtainNumericCellValue(cell).toInt
   }
   
   def getRegion(row : Int) : String = {
-    val cell = workbook.getSheetAt(0).getRow(row).getCell(0)
-    cell.getStringCellValue()
+    val cellRow = workbook.getSheet("Countries").getRow(row)
+    if(cellRow == null)
+      throw new IllegalArgumentException("Number of row incorrect")
+    cellRow.getCell(0).getStringCellValue()
   }
   
   def loadValues() : Indicator = {
@@ -50,7 +54,7 @@ class FreedomHouseExtractor(var indicator: String) extends PoiExtractor{
     } {
       val cell = row.getCell(colNum, Row.RETURN_BLANK_AS_NULL)
       if(cell != null){
-        def createExtractor() = {
+        def createRecord() = {
 	          try {
 	        	  val record = new Record(indicator.name, getRegion(cell.getRowIndex()), 
     			  getYear(cell.getColumnIndex()), obtainNumericCellValue(cell))
@@ -59,7 +63,8 @@ class FreedomHouseExtractor(var indicator: String) extends PoiExtractor{
 	          	case e: ExtractorException => Console.err.println(
 	              "There is an empty value")
 	          }
-        }       
+        }
+        createRecord()
       }        
     }
     indicator

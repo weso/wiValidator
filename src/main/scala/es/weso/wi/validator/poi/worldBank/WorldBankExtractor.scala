@@ -12,6 +12,8 @@ import es.weso.wi.entities.Record
 import java.util.Iterator
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
+import javax.management.BadAttributeValueExpException
+import org.openqa.selenium.internal.seleniumemulation.GetLocation
 
 class WorldBankExtractor extends PoiExtractor {
 
@@ -26,12 +28,16 @@ class WorldBankExtractor extends PoiExtractor {
 
   def getYear(col: Int): Int = {
     val cell = workbook.getSheetAt(0).getRow(0).getCell(col)
-    cell.getStringCellValue().toInt
+    if(cell==null)
+      throw new IllegalArgumentException
+    obtainNumericCellValue(cell).toInt
   }
 
   def getRegion(row: Int): String = {
-    val cell = workbook.getSheetAt(0).getRow(row).getCell(1)
-    cell.getStringCellValue()
+    val cellRow = workbook.getSheetAt(0).getRow(row)
+    if(cellRow==null)
+      throw new IllegalArgumentException
+    cellRow.getCell(1).getStringCellValue()
   }
 
   def loadValues(): Indicator = {
@@ -50,7 +56,7 @@ class WorldBankExtractor extends PoiExtractor {
       val cell = row.getCell(collBum, Row.RETURN_BLANK_AS_NULL)
       if (cell != null) {
         val record = new Record(indicator.name, getRegion(cell.getRowIndex()),
-          getYear(cell.getColumnIndex()), cell.getNumericCellValue())
+          getYear(cell.getColumnIndex()), obtainNumericCellValue(cell))
         indicator.addRecord(record)
       }
     }

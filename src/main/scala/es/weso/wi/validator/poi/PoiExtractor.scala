@@ -36,8 +36,6 @@ trait PoiExtractor extends Extractor {
     indicator
   }
 
-  def getIndicator(): Indicator
-
   def getYear(col: Int): Int
 
   def getRegion(row: Int): String
@@ -59,7 +57,5 @@ trait PoiExtractor extends Extractor {
       		"is not a number")
     }
   }
-
-  def loadValues(): Indicator
 
 }

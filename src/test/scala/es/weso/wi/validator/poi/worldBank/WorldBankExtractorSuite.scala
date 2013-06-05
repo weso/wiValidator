@@ -20,13 +20,13 @@ class WorldBankExtractorSuite extends FunSuite with BeforeAndAfter with ShouldMa
 	 worldBankExtractor.getYear(6) should be (1964)
   }
 
-  test(s"Test getYear given a negative number of column, '$Int.minValue'") {
+  test(s"Test getYear given a negative number of column, '${Int.MinValue}'") {
     intercept[IllegalArgumentException]{
 	  val year = worldBankExtractor.getYear(Int.MinValue)
     }
   }
 
-  test(s"Test getYear given a empty column, '$Int.maxValue'") {
+  test(s"Test getYear given a empty column, '${Int.MaxValue}'") {
     intercept[IllegalArgumentException]{
 	  val year = worldBankExtractor.getYear(Int.MaxValue)
     }
@@ -36,13 +36,13 @@ class WorldBankExtractorSuite extends FunSuite with BeforeAndAfter with ShouldMa
 	  worldBankExtractor.getRegion(48) should be ("BGD")
   }
 
-  test(s"Test getRegion given a negative number of row, 'Int.MinValue'") {
+  test(s"Test getRegion given a negative number of row, '${Int.MinValue}'") {
     intercept[IllegalArgumentException]{
     	val region = worldBankExtractor.getRegion(Int.MinValue)
     }
   }
 
-  test(s"Test getRegion given a empty row, 'Int.MaxValue'") {
+  test(s"Test getRegion given a empty row, '${Int.MaxValue}'") {
     intercept[IllegalArgumentException]{
     	val region = worldBankExtractor.getRegion(Int.MaxValue)
     }

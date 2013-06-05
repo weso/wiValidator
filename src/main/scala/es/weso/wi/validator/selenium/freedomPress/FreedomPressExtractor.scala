@@ -14,6 +14,7 @@ import es.weso.wi.validator.selenium.SeleniumExtractor
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.remote.DesiredCapabilities
 import es.weso.exceptions.ExtractorException
+import java.util.NoSuchElementException
 
 class FreedomPressExtractor extends SeleniumExtractor {
 
@@ -35,12 +36,13 @@ class FreedomPressExtractor extends SeleniumExtractor {
     if (elem == null)
       throw new ExtractorException("annnes select not found in : " + driver.getCurrentUrl())
 
-    val select = new Select(elem).selectByIndex(index)
+    val select = new Select(elem)
     
-    if(select ==null)
-      throw new IllegalArgumentException(s"Bad Index ${index}")
-    
-    new Select(elem).selectByIndex(index)
+    try{
+    	select.selectByIndex(index)
+    }catch {
+      case e:NoSuchElementException => throw new IllegalArgumentException(s"Bad Index ${index}")
+    }
   }
 
   def retrieveTRs(): List[WebElement] = {

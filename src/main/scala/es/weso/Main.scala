@@ -1,13 +1,15 @@
 package es.weso
 
-
-import es.weso.wi._
+import es.weso.wi.entities.Record
+import es.weso.wi.entities.Indicator
+import es.weso.wi.validator.poi.worldBank.WorldBankExtractor
+import es.weso.wi.validator.poi.freedomHouse.FreedomHouseExtractor
 import es.weso.wi.validator.selenium.freedomPress.FreedomPressExtractor
+import es.weso.wi.validator.poi.itu.ITUExtractor
 
 object Main {
 
   def main(args: Array[String]): Unit = {
-      val foo = new FreedomPressExtractor()
-      println(foo.loadDataSource("http://en.rsf.org/press-freedom-index-2013,1054.html").size)
+          
   }
 }

@@ -28,14 +28,14 @@ class WorldBankExtractor extends PoiExtractor {
 
   def getYear(col: Int): Int = {
     val cell = workbook.getSheetAt(0).getRow(0).getCell(col)
-    if(cell==null)
+    if (cell == null)
       throw new IllegalArgumentException
     obtainNumericCellValue(cell).toInt
   }
 
   def getRegion(row: Int): String = {
     val cellRow = workbook.getSheetAt(0).getRow(row)
-    if(cellRow==null)
+    if (cellRow == null)
       throw new IllegalArgumentException
     cellRow.getCell(1).getStringCellValue()
   }

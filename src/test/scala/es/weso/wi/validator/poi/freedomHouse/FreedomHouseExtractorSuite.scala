@@ -11,27 +11,29 @@ import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.BeforeAndAfter
 import es.weso.exceptions.ExtractorException
+import org.scalatest.matchers.ShouldMatchers
 
 @RunWith(classOf[JUnitRunner])
-class FreedomHouseExtractorSuite extends FunSuite with BeforeAndAfter {
+class FreedomHouseExtractorSuite extends FunSuite with BeforeAndAfter 
+	with ShouldMatchers{
   
   var freedomExtractor : FreedomHouseExtractor = null
   
-  /*before {
+  before {
     freedomExtractor = new FreedomHouseExtractor("PR")
-    freedomExtractor.loadDataSource("/resources/files/PR.xls")
-  }*/
+    freedomExtractor.loadDataSource("src/test/resources/files/PR.xls")
+  }
   
   test("Test getIndicator for given value \"PR\" ") {
     val extractor = new FreedomHouseExtractor("PR")
     val indicator = extractor.getIndicator
-    assert(indicator.name == "FHA")
+    indicator.name should be ("FHA")
   }
   
   test("Test getIndicator for given value \"CL\"") {
     val extractor = new FreedomHouseExtractor("CL")
     val indicator = extractor.getIndicator
-    assert(indicator.name == "FHB")
+    indicator.name should be ("FHB")
   }
   
   test("Test getIndicator for given value \"PL\"") {
@@ -44,13 +46,13 @@ class FreedomHouseExtractorSuite extends FunSuite with BeforeAndAfter {
   test("Test getRange for given indicator \"PR\"") {
     val extractor = new FreedomHouseExtractor("PR")
     val range = extractor.getRange
-    assert(range.equals(2 to 12))
+    range should be (2 to 12)
   }
   
   test("Test getRange for given indicator \"CL\"") {
     val extractor = new FreedomHouseExtractor("CL")
     val range = extractor.getRange
-    assert(range.equals(14 to 24))
+    range should be(14 to 24)
   }
   
   test("Test getRange for given indicator \"PL\"") {    
@@ -62,33 +64,41 @@ class FreedomHouseExtractorSuite extends FunSuite with BeforeAndAfter {
   
   test("Test getYear given a correct number of column") {
     val year = freedomExtractor.getYear(8)
-    //assert(year == 2009)
+    year should be (2009)
   }
   
   test("Test getYear given a negative number of column") {
-    val year = freedomExtractor.getYear(-1)
-    
+    intercept[IllegalArgumentException]{
+      val year = freedomExtractor.getYear(-1)
+    }    
   }
   
   test("Test getYear given a empty column") {
-    val year = freedomExtractor.getYear(27)
+    intercept[IllegalArgumentException]{
+      val year = freedomExtractor.getYear(27)
+    } 
   }
   
   test("Test getRegion given a correct number of row") {
     val region = freedomExtractor.getRegion(20)
-    //assert(region == "Belarus")
+    region should be ("Belarus")
   }
   
   test("Test getRegion given a negative number of row") {
-    val region = freedomExtractor.getRegion(-1)
+    intercept[IllegalArgumentException]{
+      val region = freedomExtractor.getRegion(-1)
+    }
   }
   
   test("Test getRegion given a empty row") {
-    val region = freedomExtractor.getRegion(230)
+    intercept[IllegalArgumentException] {
+      val region = freedomExtractor.getRegion(230)
+    }
   }
   
   test("Test loadValues") {
     val indicator = freedomExtractor.loadValues
+    indicator.size should not be 0
   }
 
 }

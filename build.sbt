@@ -6,6 +6,8 @@ organization := "es.weso"
 
 scalaVersion := "2.10.1"
 
-seq(cucumberSettingsWithTestPhaseIntegration : _*)
+seq(cucumberSettings : _*)
 
 cucumberJunitReport := true 
+
+cucumberStepsBasePackage := ""

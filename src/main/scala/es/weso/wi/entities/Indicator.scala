@@ -1,6 +1,6 @@
 package es.weso.wi.entities
 
-class Indicator (val name:String){
+case class Indicator (val name:String){
   
 	var years : Map[Int, Map[String, Record]] = Map.empty
 	var regions : Map[String, Map[Int, Record]] = Map.empty
@@ -34,9 +34,7 @@ class Indicator (val name:String){
 	def size() : Int = {
 	  years.map(a=>a._2.size).foldLeft(0)(_ + _)
 	}
-	
-	
-	
+		
 	private def addRecordByYear(record:Record){
 	  val map = years.getOrElse(record.year, Map.empty[String, Record])
 	  years.+=(record.year -> map.+(record.region->record))

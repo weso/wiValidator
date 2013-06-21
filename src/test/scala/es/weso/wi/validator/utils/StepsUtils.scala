@@ -6,7 +6,7 @@ import scala.collection.mutable.{ Map => MutableMap }
 object StepsUtils {
   
   val vars = MutableMap[String, String]()
-  var indicator : Indicator = null
+  var indicators : Map[String, Indicator] = null
   
   val INDICATOR = "indicator"
   val REGION = "region"

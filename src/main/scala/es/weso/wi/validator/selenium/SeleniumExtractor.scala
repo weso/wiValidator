@@ -20,12 +20,12 @@ trait SeleniumExtractor extends Extractor{
     driver.close()
   }
 
-  def loadDataSource(path: String, relativePath: Boolean = false): Indicator = {
+  override def loadDataSource(path: String, relativePath: Boolean = false): Map[String,Indicator] = {
     loadDriver()
     driver.get(path)
-    val indicator = loadValues()
+    val indicators = loadValues()
     closeDriver()
-    indicator
+    indicators
   }
 
 }

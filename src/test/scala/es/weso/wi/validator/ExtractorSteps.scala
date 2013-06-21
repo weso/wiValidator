@@ -23,23 +23,27 @@ class ExtractorSteps extends ScalaDsl with EN with ShouldMatchers {
     }
 
     if (source equals "FreedomPress") {
-    	StepsUtils.indicator = 
+    	StepsUtils.indicators = 
     	  extractor.loadDataSource("http://en.rsf.org/press-freedom-index-2013,1054.html")
     } else {
-      StepsUtils.indicator = extractor.loadDataSource("files/" +
+      StepsUtils.indicators = extractor.loadDataSource("files/" +
         StepsUtils.vars(StepsUtils.INDICATOR) + ".xls", true)
     }
   }
 
   Then("""^the value should be "([^"]*)"$""") { (value: Double) =>
-    val record = StepsUtils.indicator.getRecord(StepsUtils.vars(StepsUtils.REGION),
+    val indicator = StepsUtils.vars.getOrElse(StepsUtils.INDICATOR, null)
+    val record = StepsUtils.indicators.getOrElse(indicator, null)
+    	.getRecord(StepsUtils.vars(StepsUtils.REGION),
       StepsUtils.vars(StepsUtils.YEAR).toInt)
     value should be(record.value.toDouble plusOrMinus 0.0000001f)
   }
 
   Then("""^it should raise an Exception$""") { () =>
     intercept[Exception] {
-      StepsUtils.indicator.getRecord(StepsUtils.vars(StepsUtils.REGION),
+      val indicator = StepsUtils.vars.getOrElse(StepsUtils.INDICATOR, null)
+      StepsUtils.indicators.getOrElse(indicator, null)
+      .getRecord(StepsUtils.vars(StepsUtils.REGION),
         StepsUtils.vars(StepsUtils.YEAR).toInt)
     }
   }

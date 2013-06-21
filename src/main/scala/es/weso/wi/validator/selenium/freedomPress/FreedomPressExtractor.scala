@@ -16,10 +16,12 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import es.weso.exceptions.ExtractorException
 import java.util.NoSuchElementException
 
-class FreedomPressExtractor extends SeleniumExtractor {
+case class FreedomPressExtractor extends SeleniumExtractor {
 
+  val name = "FREEDOM-INDEX"
+  
   def getIndicator(): Indicator = {
-    new Indicator("FREEDOM-INDEX")
+    Indicator(name)
   }
   
   def getValue(tds: List[WebElement]): Double = {
@@ -54,7 +56,7 @@ class FreedomPressExtractor extends SeleniumExtractor {
     trs.toList
   }
   
-  def loadValues(): Indicator = {
+  override def loadValues(): Map[String, Indicator] = {
 
     val indicator = getIndicator
 
@@ -71,6 +73,6 @@ class FreedomPressExtractor extends SeleniumExtractor {
           year._1, getValue(tds.toList)))
       }
     }
-    indicator
+    Map(indicator.name -> indicator)
   }
 }

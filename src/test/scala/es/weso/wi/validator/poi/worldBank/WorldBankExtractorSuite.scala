@@ -12,7 +12,7 @@ class WorldBankExtractorSuite extends FunSuite with BeforeAndAfter with ShouldMa
    var worldBankExtractor : WorldBankExtractor = null
   
   before {
-    worldBankExtractor = new WorldBankExtractor()
+    worldBankExtractor = WorldBankExtractor()
     worldBankExtractor.loadDataSource("files/AG.LND.IRIG.AG.ZS.xls", true)
   }
   
@@ -48,7 +48,7 @@ class WorldBankExtractorSuite extends FunSuite with BeforeAndAfter with ShouldMa
     }
   }
 
-  test("Test loadValues") {
-    worldBankExtractor.loadValues.size should be (539)
+  test("Test loadValues, '539'") {
+    worldBankExtractor.loadValues.map(_._2.size).foldLeft(0)(_+_) should be (539)
   }
 }

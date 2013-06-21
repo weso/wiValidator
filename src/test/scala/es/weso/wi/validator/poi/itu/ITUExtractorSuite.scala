@@ -12,7 +12,7 @@ class ITUExtractorSuite extends FunSuite with BeforeAndAfter with ShouldMatchers
   var extractor : ITUExtractor = null
   
   before {
-    extractor = new ITUExtractor(1, 12, "B1")
+    extractor = ITUExtractor(1, 12, "B1")
     extractor.loadDataSource("src/test/resources/files/ITUH.xls")
   }
   
@@ -22,7 +22,7 @@ class ITUExtractorSuite extends FunSuite with BeforeAndAfter with ShouldMatchers
   }
   
   test("Test getIndicator for test file \"ITUH.xls\" with invalid indicator cell") {
-    val extractor = new ITUExtractor(1, 12, "A1")
+    val extractor = ITUExtractor(1, 12, "A1")
     extractor.loadDataSource("src/test/resources/files/ITUH.xls")
     val indicator = extractor.getIndicator
     indicator.name should not be ("Percentage of Individuals using the Internet")

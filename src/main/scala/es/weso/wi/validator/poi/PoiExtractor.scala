@@ -29,13 +29,15 @@ trait PoiExtractor extends Extractor {
     file.close()
   }
 
-  def loadDataSource(path: String, relativePath: Boolean = false): Indicator = {
+  override def loadDataSource(path: String, relativePath: Boolean = false): Map[String, Indicator] = {
     loadWorkbook(path, relativePath)
-    val indicator = loadValues()
+    val indicators = loadValues()
     closeWorkbook
-    indicator
+    indicators
   }
 
+  def getIndicator(): Indicator
+  
   def getYear(col: Int): Int
 
   def getRegion(row: Int): String

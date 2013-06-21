@@ -9,7 +9,7 @@ import org.apache.poi.ss.usermodel.Cell
 import es.weso.exceptions.ExtractorException
 import scala.collection.immutable.Range.Inclusive
 
-class FreedomHouseExtractor(var indicator: String) extends PoiExtractor {
+case class FreedomHouseExtractor(var indicator: String) extends PoiExtractor {
 
   val startCell: String = "C5"
   val prInitialCol = 2
@@ -40,7 +40,7 @@ class FreedomHouseExtractor(var indicator: String) extends PoiExtractor {
     cellRow.getCell(0).getStringCellValue()
   }
 
-  def loadValues(): Indicator = {
+  def loadValues(): Map[String, Indicator] = {
     val initialCell: CellReference = new CellReference(startCell);
     val indicator = getIndicator()
     val sheet = workbook.getSheet("Countries")
@@ -67,7 +67,7 @@ class FreedomHouseExtractor(var indicator: String) extends PoiExtractor {
         createRecord()
       }
     }
-    indicator
+    Map(indicator.name->indicator)
   }
 
   def getRange(): Inclusive = {

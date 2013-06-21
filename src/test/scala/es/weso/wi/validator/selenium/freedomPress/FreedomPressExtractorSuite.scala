@@ -18,7 +18,7 @@ class FreedomPressExtractorSuite  extends FunSuite with BeforeAndAfter with Shou
   }
   
   test("Test loadValues") {
-    freedomPressExtractor.loadValues.size should be (2030)
+    freedomPressExtractor.loadValues.map(_._2.size).foldLeft(0)(_+_) should be (2030)
   }
   
   test("Test navigateTo correct index '2'") {

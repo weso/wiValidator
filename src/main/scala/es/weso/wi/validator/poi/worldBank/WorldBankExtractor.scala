@@ -15,32 +15,32 @@ import org.apache.poi.ss.usermodel.Sheet
 import javax.management.BadAttributeValueExpException
 import org.openqa.selenium.internal.seleniumemulation.GetLocation
 
-class WorldBankExtractor extends PoiExtractor {
+case class WorldBankExtractor extends PoiExtractor {
 
   val indicatorCell = "A2"
   val startCell = "C2"
 
-  def getIndicator(): Indicator = {
+  override def getIndicator(): Indicator = {
     val cr: CellReference = new CellReference(indicatorCell)
     val cell = workbook.getSheetAt(1).getRow(cr.getRow()).getCell(cr.getCol())
     new Indicator(cell.getStringCellValue())
   }
 
-  def getYear(col: Int): Int = {
+  override def getYear(col: Int): Int = {
     val cell = workbook.getSheetAt(0).getRow(0).getCell(col)
     if (cell == null)
       throw new IllegalArgumentException
     obtainNumericCellValue(cell).toInt
   }
 
-  def getRegion(row: Int): String = {
+  override def getRegion(row: Int): String = {
     val cellRow = workbook.getSheetAt(0).getRow(row)
     if (cellRow == null)
       throw new IllegalArgumentException
     cellRow.getCell(1).getStringCellValue()
   }
 
-  def loadValues(): Indicator = {
+  override def loadValues(): Map[String, Indicator] = {
     val indicator = getIndicator()
     val sheet: Sheet = workbook.getSheetAt(0);
 
@@ -60,8 +60,7 @@ class WorldBankExtractor extends PoiExtractor {
         indicator.addRecord(record)
       }
     }
-
-    indicator
+    Map(indicator.name->indicator)
   }
 
 }

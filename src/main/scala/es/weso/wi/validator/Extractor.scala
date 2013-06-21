@@ -5,11 +5,9 @@ import es.weso.wi.entities.Indicator
 
 trait Extractor {
 
-  def loadDataSource(path: String, relativePath: Boolean = false): Indicator
+  def loadDataSource(path: String, relativePath: Boolean = false): Map[String, Indicator]
 
-  def loadValues(): Indicator
-
-  def getIndicator(): Indicator
+  def loadValues():  Map[String, Indicator]
 
   def checkValue(indicator: String, region: String, value: String) = {
     throw new NotImplementedException

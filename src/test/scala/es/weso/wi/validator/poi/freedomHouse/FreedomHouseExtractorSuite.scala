@@ -20,43 +20,43 @@ class FreedomHouseExtractorSuite extends FunSuite with BeforeAndAfter
   var freedomExtractor : FreedomHouseExtractor = null
   
   before {
-    freedomExtractor = new FreedomHouseExtractor("PR")
+    freedomExtractor = FreedomHouseExtractor("PR")
     freedomExtractor.loadDataSource("src/test/resources/files/PR.xls")
   }
   
   test("Test getIndicator for given value \"PR\" ") {
-    val extractor = new FreedomHouseExtractor("PR")
+    val extractor = FreedomHouseExtractor("PR")
     val indicator = extractor.getIndicator
     indicator.name should be ("FHA")
   }
   
   test("Test getIndicator for given value \"CL\"") {
-    val extractor = new FreedomHouseExtractor("CL")
+    val extractor = FreedomHouseExtractor("CL")
     val indicator = extractor.getIndicator
     indicator.name should be ("FHB")
   }
   
   test("Test getIndicator for given value \"PL\"") {
-    val extractor = new FreedomHouseExtractor("PL")
+    val extractor = FreedomHouseExtractor("PL")
     intercept[ExtractorException] {
       val indicator = extractor.getIndicator
     }    
   }
   
   test("Test getRange for given indicator \"PR\"") {
-    val extractor = new FreedomHouseExtractor("PR")
+    val extractor = FreedomHouseExtractor("PR")
     val range = extractor.getRange
     range should be (2 to 12)
   }
   
   test("Test getRange for given indicator \"CL\"") {
-    val extractor = new FreedomHouseExtractor("CL")
+    val extractor = FreedomHouseExtractor("CL")
     val range = extractor.getRange
     range should be(14 to 24)
   }
   
   test("Test getRange for given indicator \"PL\"") {    
-     val extractor = new FreedomHouseExtractor("PL")
+     val extractor = FreedomHouseExtractor("PL")
      intercept[ExtractorException]{
        val range = extractor.getRange
      }

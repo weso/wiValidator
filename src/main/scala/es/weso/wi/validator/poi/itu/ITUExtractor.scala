@@ -7,23 +7,23 @@ import org.apache.poi.ss.usermodel.Row
 import es.weso.exceptions.ExtractorException
 import es.weso.wi.entities.Record
 
-class ITUExtractor(initialColumn: Int, finalColumn: Int, indicatorCell: String)
+case class ITUExtractor(initialColumn: Int, finalColumn: Int, indicatorCell: String)
   extends PoiExtractor {
 
-  def getIndicator(): Indicator = {
+  override def getIndicator(): Indicator = {
     val cr: CellReference = new CellReference(indicatorCell)
     val cell = workbook.getSheetAt(0).getRow(cr.getRow()).getCell(cr.getCol())
     new Indicator(cell.getStringCellValue().trim())
   }
 
-  def getYear(col: Int): Int = {
+  override def getYear(col: Int): Int = {
     if (col < initialColumn || col > finalColumn)
       throw new IllegalArgumentException("Invalid number of column")
     val cell = workbook.getSheetAt(0).getRow(1).getCell(col)
     obtainNumericCellValue(cell).toInt
   }
 
-  def getRegion(row: Int): String = {
+  override def getRegion(row: Int): String = {
     val cellRow = workbook.getSheetAt(0).getRow(row)
     if (cellRow == null || row < 2)
       throw new IllegalArgumentException("Invalid number of row")
@@ -31,7 +31,7 @@ class ITUExtractor(initialColumn: Int, finalColumn: Int, indicatorCell: String)
     cell.getStringCellValue()
   }
 
-  def loadValues(): Indicator = {
+  override def loadValues(): Map[String,Indicator] = {
     val startCell: CellReference = new CellReference(2, initialColumn)
     val indicator = getIndicator
     val sheet = workbook.getSheetAt(0)
@@ -58,7 +58,7 @@ class ITUExtractor(initialColumn: Int, finalColumn: Int, indicatorCell: String)
         createRecord()
       }
     }
-    indicator
+    Map(indicator.name->indicator)
   }
 
 }

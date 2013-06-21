@@ -8,11 +8,11 @@ import es.weso.wi.entities._
 import scala.collection.immutable.HashMap
 import es.weso.wi.entities.JsMap
 
-class IndabaExtractor extends RestExtractor {
+case class IndabaExtractor(val horsePath:String = "src/main/resources/files/Horseids.json")  extends RestExtractor {
 
   val indabaPath = "https://www.indabaplatform.com:443/ids"
-  val horses: Map[Int, Horse] = loadHorseIds("src/main/resources/files/Horseids.json")
   val categories: List[Int] = loadCategoryIds("src/main/resources/files/IndabaCategories.json")
+  val horses : Map[Int,Horse] = loadHorseIds(horsePath)
   var indicators: Map[String, Indicator] = Map.empty
   var path :String = null
   
@@ -78,7 +78,7 @@ class IndabaExtractor extends RestExtractor {
     indicators += record.name -> indicator
   }
 
-  def loadDataSource(path: String, relativePath: Boolean = false): Indicator = {
+  override def loadDataSource(path: String = "", relativePath: Boolean = false): Map[String, Indicator] = {
     this.path = path
     loadValues()
   }
@@ -92,7 +92,7 @@ class IndabaExtractor extends RestExtractor {
     }
   }
 
-  def loadValues(): Indicator = {
+  def loadValues() : Map[String, Indicator] = {
     if (indicators isEmpty) {
       for {
         category <- categories
@@ -101,7 +101,7 @@ class IndabaExtractor extends RestExtractor {
         getVerticalScorecardQuestionSetDetailService(horse._1, category)
       }
     }
-    indicators.getOrElse(indabaPath, Indicator("Undefined"))
+    indicators
   }
 
   def getIndicator(): Indicator = {

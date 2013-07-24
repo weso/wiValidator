@@ -81,7 +81,7 @@ class FreedomHouseExtractorSuite extends FunSuite with BeforeAndAfter
   
   test("Test getRegion given a correct number of row") {
     val region = freedomExtractor.getRegion(20)
-    region should be ("Belarus")
+    region should be ("BLR")
   }
   
   test("Test getRegion given a negative number of row") {

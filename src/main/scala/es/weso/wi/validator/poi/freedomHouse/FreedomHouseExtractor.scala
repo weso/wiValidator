@@ -11,7 +11,7 @@ import scala.collection.immutable.Range.Inclusive
 
 class FreedomHouseExtractor(var indicator: String) extends PoiExtractor {
 
-  val startCell: String = "C5"
+  val startCell: String = "C6"
   val prInitialCol = 2
   val prFinalCol = 12
   val clIntialCol = 14
@@ -37,7 +37,12 @@ class FreedomHouseExtractor(var indicator: String) extends PoiExtractor {
     val cellRow = workbook.getSheet("Countries").getRow(row)
     if (cellRow == null)
       throw new IllegalArgumentException("Number of row incorrect")
-    cellRow.getCell(0).getStringCellValue()
+    val cell = cellRow.getCell(0)
+    val result = reconciliator.searchCountryResult(cell.getStringCellValue())
+    if(result.iso3Code == null)
+      throw new IllegalArgumentException("There is no country in Web Index " +
+      		"with name " + cell.getStringCellValue)
+    result.iso3Code
   }
 
   def loadValues(): Indicator = {

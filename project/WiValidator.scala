@@ -29,9 +29,11 @@ object WiValidatorBuild extends Build {
       
       //Project Dependencies
       libraryDependencies += "org.apache.poi" % "poi" % "3.9",
+      libraryDependencies += "es.weso" %% "countryreconciliator" % "0.0.1-SNAPSHOT", 
       
       //Resolvers
       resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots",
+      resolvers += "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.ivy2/local",
       resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/")
     )
 }

@@ -1,11 +1,13 @@
 package es.weso.wi.validator.poi.itu
 
-import es.weso.wi.validator.poi.PoiExtractor
-import es.weso.wi.entities.Indicator
 import org.apache.poi.hssf.util.CellReference
 import org.apache.poi.ss.usermodel.Row
+
 import es.weso.exceptions.ExtractorException
+import es.weso.reconciliator.CountryReconciliator
+import es.weso.wi.entities.Indicator
 import es.weso.wi.entities.Record
+import es.weso.wi.validator.poi.PoiExtractor
 
 class ITUExtractor(initialColumn: Int, finalColumn: Int, indicatorCell: String)
   extends PoiExtractor {
@@ -28,7 +30,11 @@ class ITUExtractor(initialColumn: Int, finalColumn: Int, indicatorCell: String)
     if (cellRow == null || row < 2)
       throw new IllegalArgumentException("Invalid number of row")
     val cell = cellRow.getCell(0)
-    cell.getStringCellValue()
+    val result = reconciliator.searchCountryResult(cell.getStringCellValue())
+    if(result.iso3Code == null)
+      throw new IllegalArgumentException("There is no country in Web Index " +
+      		"with name " + cell.getStringCellValue)
+    result.iso3Code
   }
 
   def loadValues(): Indicator = {

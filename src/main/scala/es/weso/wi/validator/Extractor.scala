@@ -2,8 +2,12 @@ package es.weso.wi.validator
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException
 import es.weso.wi.entities.Indicator
+import es.weso.reconciliator.CountryReconciliator
 
 trait Extractor {
+  
+  protected val reconciliator : CountryReconciliator = new CountryReconciliator(
+      "files/countries.json", true)
 
   def loadDataSource(path: String, relativePath: Boolean = false): Indicator
 

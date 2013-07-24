@@ -27,7 +27,12 @@ class FreedomPressExtractor extends SeleniumExtractor {
   }
 
   def getRegion(tds: List[WebElement]): String = {
-    tds.get(1).getText()
+    val result = reconciliator.searchCountryResult(tds.get(1).getText())
+    if(result.iso3Code == null)
+      throw new IllegalArgumentException("There is no country in Web Index " +
+      		"with name " + tds.get(1).getText())
+    result.iso3Code
+    //reconciliator.searchCountryResult(tds.get(1).getText()).iso3Code
   }
   
   def navigateTo(index: Int) {

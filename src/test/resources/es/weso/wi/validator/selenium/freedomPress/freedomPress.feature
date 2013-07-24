@@ -5,11 +5,11 @@ Feature: Cucumber
 
   Scenario: Validate WorldBank Data
     
-  	Given I want to check the FreedomPress indicator "AG.LND.IRIG.AG.ZS" for "Canada" in "2005"
+  	Given I want to check the FreedomPress indicator "AG.LND.IRIG.AG.ZS" for "CAN" in "2005"
   	When I check the original "FreedomPress" source
     Then the value should be "4.5"
     
-    Given I want to check the FreedomPress indicator "AG.LND.IRIG.AG.ZS" for "Belgium" in "2003"
+    Given I want to check the FreedomPress indicator "AG.LND.IRIG.AG.ZS" for "BEL" in "2003"
   	When I check the original "FreedomPress" source
     Then the value should be "1.17"
     

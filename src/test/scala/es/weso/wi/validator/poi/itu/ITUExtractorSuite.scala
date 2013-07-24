@@ -48,7 +48,7 @@ class ITUExtractorSuite extends FunSuite with BeforeAndAfter with ShouldMatchers
   
   test("Test getRegion for a correct number of row") {
     val region = extractor.getRegion(15)
-    region should be ("Austria")
+    region should be ("AUT")
   }
   
   test("Test getRegion for a negative number of row") {
